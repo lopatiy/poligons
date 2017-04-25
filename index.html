@@ -1,21 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-</style>
 <head>
     <meta charset="UTF-8">
-    <title>Polygonz</title>
+    <title>Polygons</title>
+    <link rel="stylesheet" href="styles/app.css">
+
+    <script src="javascript/app.js"></script>
+    <script src="javascript/image-loader.js"></script>
+    <script src="javascript/points.js"></script>
+    <script src="javascript/scene.js"></script>
+    <script src="javascript/main.js"></script>
 </head>
-<body>
-<canvas width="1920" height="1080" id="scene"></canvas>
-<script src="javascript/image-loader.js"></script>
-<script src="javascript/Point.js"></script>
-<script src="javascript/Scene.js"></script>
-<script src="javascript/main.js"></script>
+<body onload="loaded()">
+    <canvas width="1920" height="1080" id="scene"></canvas>
 </body>
 </html>

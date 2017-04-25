@@ -11,7 +11,6 @@ class Point {
     }
 }
 
-
 class UVPoint extends Point {
     constructor(x, y, h) {
         super(x, y);
