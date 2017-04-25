@@ -1,19 +1,28 @@
-class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.origin = {};
+class UVPointsList {
+    constructor(){
+        this.points = [];
+        this.length = 0;
     }
 
-    setOrigin(x, y) {
-        this.origin.x = x;
-        this.origin.y = y;
-    }
-}
+    add(x,y,z,row,col){
+        let i = this.length * 5;
 
-class UVPoint extends Point {
-    constructor(x, y, h) {
-        super(x, y);
-        this.h = h ? h : Math.random()*10;
+        this.points[i++] = x;
+        this.points[i++] = y;
+        this.points[i++] = z;
+        this.points[i++] = row;
+        this.points[i++] = col;
+        return this.length++;
+    }
+
+    get(i){
+        i = i * 5;
+        return {
+            x: this.points[i],
+            y: this.points[i+1],
+            z: this.points[i+2],
+            row: this.points[i+3],
+            col: this.points[i+4]
+        }
     }
 }
