@@ -3,3 +3,63 @@ body {
     padding: 0;
     overflow: hidden;
 }
+
+.aside {
+    top: 0;
+    position:fixed;
+    width: 200px;
+    height: 100%;
+    background: #333;
+    box-shadow: 0 0 15px -2px;
+}
+
+.aside .logo {
+    width: 160px;
+    height: 180px;
+    border: 1px solid black;
+    margin: 20px;
+}
+
+.aside .logo:before {
+    content: '';
+    display: block;
+    position: relative;
+    top: 190px;
+    width: 90%;
+    height: 2px;
+    background: gold;
+}
+
+.aside .logo:after {
+    overflow: hidden;
+    content: '';
+    display: block;
+    position: relative;
+    top: 195px;
+    width: 80%;
+    height: 2px;
+    background: black;
+}
+
+.links {
+    margin: 10px 0;
+    padding: 10px 0;
+    width: 180px;
+    height: 100%;
+}
+
+.links a {
+    padding: 0 20px;
+    font-size: 1.5em;
+    color: #333;
+    font-family: "Arial Black", serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: #222;
+
+    transition: background-color .5s;
+}
+
+.links a.active{
+    background-color: gold;
+}
