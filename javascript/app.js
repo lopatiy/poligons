@@ -22,11 +22,17 @@ class Application {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
-        let density = 25;
-        for (let row = 0, rows = Math.floor(this.height / density); row < rows; row++) {
-            for (let col = 0, cols = Math.floor(this.width / density); col < cols; col++) {
-                let x = col * density + Math.random() * density;
-                let y = row * density + Math.random() * density;
+        let rows = 36;
+        let cols = Math.ceil(this.width/this.height * rows);
+
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+
+                let rowDelta = this.width/cols;
+                let colDelta = this.height/rows;
+
+                let x = col * colDelta+ Math.random() * colDelta;
+                let y = row * rowDelta + Math.random() * rowDelta;
 
                 row == 0 && (y = 0);
                 row == rows - 1 && (y = this.height);
@@ -58,6 +64,8 @@ class Application {
                 renderTriangles(row, col + 1)
             } else if (left != undefined) {
                 renderTriangles(row + 1, 0)
+            } else {
+                return 0;
             }
         };
 
@@ -81,10 +89,9 @@ class Application {
         this.scene.shape(points);
     }
 
-    getColor(arr)  {
+    getColor(arr){
         let mouse = this.mouse();
 
-        
         const x1 = arr[0].x,
             x2 = arr[1].x,
             x3 = arr[2].x,
@@ -98,11 +105,12 @@ class Application {
             B = z1 * (x2 - x3) + z2 * (x3 - x1) + z3 * (x1 - x2),
             C = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2),
             D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 *z3) + x3 *(y1 * z2 - y2 * z1));
+        let vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100};
+        let sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A*A + B*B + C*C) * Math.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z));
 
-        const shiny = A*mouse.x + B*mouse.y + C*5 + D > 0;
-        let norm = [A,B,C]; // ???
 
-        let shade = 51;
+        //let shade = sin * 50;
+        let shade = Math.ceil(sin * 20 + 40);
 
         return {
             r: shade,
