@@ -22,7 +22,7 @@ class Application {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
-        let rows = 36;
+        let rows = 18;
         let cols = Math.ceil(this.width/this.height * rows);
 
         for (let row = 0; row < rows; row++) {
@@ -76,7 +76,7 @@ class Application {
     update() {
         requestAnimationFrame(() => {
             this.render();
-            this.update();
+            setTimeout(this.update.bind(this), 10);
         });
         return this;
     }
@@ -89,28 +89,18 @@ class Application {
         this.scene.shape(points);
     }
 
-    getColor(arr){
+    getColor(arr) {
         let mouse = this.mouse();
 
-        const x1 = arr[0].x,
-            x2 = arr[1].x,
-            x3 = arr[2].x,
-            y1 = arr[0].y,
-            y2 = arr[1].y,
-            y3 = arr[2].y,
-            z1 = arr[0].z,
-            z2 = arr[1].z,
-            z3 = arr[2].z,
+        let x1 = arr[0].x, x2 = arr[1].x, x3 = arr[2].x,
+            y1 = arr[0].y, y2 = arr[1].y, y3 = arr[2].y,
+            z1 = arr[0].z, z2 = arr[1].z, z3 = arr[2].z,
             A = y1 * (z2 - z3) + y2 * (z3 - z1) + y3 * (z1 - z2),
             B = z1 * (x2 - x3) + z2 * (x3 - x1) + z3 * (x1 - x2),
             C = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2),
-            D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 *z3) + x3 *(y1 * z2 - y2 * z1));
-        let vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100};
-        let sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A*A + B*B + C*C) * Math.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z));
-
-
-        //let shade = sin * 50;
-        let shade = Math.ceil(sin * 20 + 40);
+            vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100},
+            sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A * A + B * B + C * C) * Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)),
+            shade = Math.ceil(sin * 20 + 40);
 
         return {
             r: shade,
