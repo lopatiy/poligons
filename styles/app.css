@@ -15,7 +15,7 @@ body {
 
 .aside .logo {
     width: 160px;
-    height: 180px;
+    height: 160px;
     border: 1px solid black;
     margin: 20px;
 }
@@ -24,7 +24,7 @@ body {
     content: '';
     display: block;
     position: relative;
-    top: 190px;
+    top: 170px;
     width: 90%;
     height: 2px;
     background: gold;
@@ -35,7 +35,7 @@ body {
     content: '';
     display: block;
     position: relative;
-    top: 195px;
+    top: 175px;
     width: 80%;
     height: 2px;
     background: black;

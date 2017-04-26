@@ -1,5 +1,7 @@
 class Layout {
     constructor(width, height, canvas) {
+        this.maxZ = 10;
+
         this.width = width;
         this.height = height;
         this.canvas = canvas;
@@ -40,7 +42,7 @@ class Layout {
                 col == 0 && (x = 0);
                 col == cols - 1 && (x = this.width);
 
-                let z = Math.random() * 10;
+                let z = Math.random() * this.maxZ;
                 this.pointsMap[row + ',' + col] = this.points.add(x, y, z);
             }
         }
