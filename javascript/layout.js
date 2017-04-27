@@ -18,6 +18,9 @@ class Layout {
             this.mousePosition.x = event.clientX;
             this.mousePosition.y = event.clientY;
         });
+
+        this.animationTypes = ["Arrow", "VLine"];
+        this.currentAnimation = this.animationTypes[0];
     }
 
     calculateLayout() {
@@ -77,23 +80,49 @@ class Layout {
         return this;
     }
 
-    update(i) {
-        requestAnimationFrame(() => {
-            //this.animate(i);
-            this.render();
-            setTimeout(this.update.bind(this, ++i), 10);
-        });
+    watch() {
+        let frame = 0;
+        let skipped = 0;
+        const update = () =>
+            requestAnimationFrame(() => {
+                if(skipped++ === 2){
+                    skipped = 0;
+                    this.animate(++frame);
+                }
+                this.render();
+                setTimeout(update.bind(this), 10);
+            });
+        update();
         return this;
     }
-    
-    animate(frame) {
-        let col = frame % this.cols,
-            prev = col > 0 ? col : this.cols - 1;
 
-        for (let row = 0; row < this.rows; row++) {
-            let offset = row * this.cols;
-            this.points.update(offset + col, 'z', 30);
-            this.points.set(prev, this.originalPoints.get(prev));
+    animate(frame) {
+        let col = frame % (this.cols);
+        if(col == 0){
+            this.currentAnimation = this.animationTypes[Math.floor(Math.random() * this.animationTypes.length)];
+        }
+        this.transformations(this.currentAnimation, col);
+    }
+
+    transformations(type, col){
+        this.points = this.originalPoints.copy();
+        switch (type){
+            case "VLine" :
+                for (let row = 0; row < this.rows; row++) {
+                    let offset = row * this.cols;
+                    this.points.update(offset + col, 'z', 30);
+                }
+                break;
+            case "Arrow" :
+                for (let row = 0; row < this.rows; row++) {
+                    let offset = row * this.cols,
+                        colOffset = (row <= this.rows/2 ? row : this.rows-row)-this.rows/2,
+                        currentColumn  = colOffset + col;
+                    if(currentColumn < this.cols){
+                        this.points.update(offset + currentColumn, 'z', 30);
+                    }
+                }
+                break;
         }
     }
 
