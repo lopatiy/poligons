@@ -20,61 +20,18 @@ class Layout {
         });
     }
 
-    contains(bounds, lat, lng) {
-        //https://rosettacode.org/wiki/Ray-casting_algorithm
-        var count = 0;
-        for (var b = 0; b < bounds.length; b++) {
-            var vertex1 = bounds[b];
-            var vertex2 = bounds[(b + 1) % bounds.length];
-            if (west(vertex1, vertex2, lng, lat))
-                ++count;
-        }
-        return count % 2;
-
-        /**
-         * @return {boolean} true if (x,y) is west of the line segment connecting A and B
-         */
-        function west(A, B, x, y) {
-            if (A.y <= B.y) {
-                if (y <= A.y || y > B.y ||
-                    x >= A.x && x >= B.x) {
-                    return false;
-                } else if (x < A.x && x < B.x) {
-                    return true;
-                } else {
-                    return (y - A.y) / (x - A.x) > (B.y - A.y) / (B.x - A.x);
-                }
-            } else {
-                return west(B, A, x, y);
-            }
-        }
-    }
-
-    matchesFigure(x, y) {
-        for (let i = 0; i < this.web.length; i++) {
-            if(!!~_.findIndex(_.chunk(this.web,2), (item) => {
-                    return item[0] == x && item[1] == y
-                        || item[0]+1 == x && item[1] == y
-                        || item[0] == x && item[1]+1 == y
-                        || item[0]+1 == x && item[1]+1 == y
-                })) {
-                return true
-            }
-        }
-    }
-    
     calculateLayout() {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
-        let rows = 18;
-        let cols = Math.ceil(this.width/this.height * rows);
+        this.rows = 18;
+        this.cols = Math.ceil(this.width/this.height * this.rows);
 
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
+        for (let row = 0; row < this.rows; row++) {
+            for (let col = 0; col < this.cols; col++) {
 
-                let rowDelta = this.width/cols;
-                let colDelta = this.height/rows;
+                let rowDelta = this.width/this.cols;
+                let colDelta = this.height/this.rows;
                 
                 let x,y,z,color;
                 x = col * colDelta + Math.random() * colDelta;
@@ -82,15 +39,16 @@ class Layout {
                 z = Math.random() * this.maxZ;
 
                 row == 0 && (y = 0);
-                row == rows - 1 && (y = this.height);
+                row == this.rows - 1 && (y = this.height);
 
                 col == 0 && (x = 0);
-                col == cols - 1 && (x = this.width);
+                col == this.cols - 1 && (x = this.width);
 
                 this.pointsMap[row + ',' + col] = this.points.add(x, y, z, color);
             }
         }
 
+        this.originalPoints = this.points.copy();
         return this;
     }
 
@@ -119,12 +77,24 @@ class Layout {
         return this;
     }
 
-    update() {
+    update(i) {
         requestAnimationFrame(() => {
+            //this.animate(i);
             this.render();
-            setTimeout(this.update.bind(this), 10);
+            setTimeout(this.update.bind(this, ++i), 10);
         });
         return this;
+    }
+    
+    animate(frame) {
+        let col = frame % this.cols,
+            prev = col > 0 ? col : this.cols - 1;
+
+        for (let row = 0; row < this.rows; row++) {
+            let offset = row * this.cols;
+            this.points.update(offset + col, 'z', 30);
+            this.points.set(prev, this.originalPoints.get(prev));
+        }
     }
 
     renderTriangle(a,b,c) {
@@ -150,7 +120,7 @@ class Layout {
         
         mouse.x > Math.min(x1,x2,x3) && mouse.x < Math.max(x1,x2,x3)
         && mouse.y > Math.min(y1,y2,y3) && mouse.y < Math.max(y1,y2,y3)
-        && (shade += 10)
+        && (shade += 10);
 
         return {
             r: shade,

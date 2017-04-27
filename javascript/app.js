@@ -17,7 +17,7 @@ class Application {
         if (once) {
             this.layout.render();
         } else {
-            this.layout.update();
+            this.layout.update(0);
         }
     }
 
