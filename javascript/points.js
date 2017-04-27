@@ -4,25 +4,23 @@ class UVPointsList {
         this.length = 0;
     }
 
-    add(x,y,z,row,col){
-        let i = this.length * 5;
+    add(x,y,z,color){
+        let i = this.length * 4;
 
         this.points[i++] = x;
         this.points[i++] = y;
         this.points[i++] = z;
-        this.points[i++] = row;
-        this.points[i++] = col;
+        this.points[i++] = color;
         return this.length++;
     }
 
     get(i){
-        i = i * 5;
+        i = i * 4;
         return {
             x: this.points[i],
             y: this.points[i+1],
             z: this.points[i+2],
-            row: this.points[i+3],
-            col: this.points[i+4]
+            color: this.points[i+3]
         }
     }
 }

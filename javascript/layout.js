@@ -19,6 +19,49 @@ class Layout {
             this.mousePosition.y = event.clientY;
         });
     }
+
+    contains(bounds, lat, lng) {
+        //https://rosettacode.org/wiki/Ray-casting_algorithm
+        var count = 0;
+        for (var b = 0; b < bounds.length; b++) {
+            var vertex1 = bounds[b];
+            var vertex2 = bounds[(b + 1) % bounds.length];
+            if (west(vertex1, vertex2, lng, lat))
+                ++count;
+        }
+        return count % 2;
+
+        /**
+         * @return {boolean} true if (x,y) is west of the line segment connecting A and B
+         */
+        function west(A, B, x, y) {
+            if (A.y <= B.y) {
+                if (y <= A.y || y > B.y ||
+                    x >= A.x && x >= B.x) {
+                    return false;
+                } else if (x < A.x && x < B.x) {
+                    return true;
+                } else {
+                    return (y - A.y) / (x - A.x) > (B.y - A.y) / (B.x - A.x);
+                }
+            } else {
+                return west(B, A, x, y);
+            }
+        }
+    }
+
+    matchesFigure(x, y) {
+        for (let i = 0; i < this.web.length; i++) {
+            if(!!~_.findIndex(_.chunk(this.web,2), (item) => {
+                    return item[0] == x && item[1] == y
+                        || item[0]+1 == x && item[1] == y
+                        || item[0] == x && item[1]+1 == y
+                        || item[0]+1 == x && item[1]+1 == y
+                })) {
+                return true
+            }
+        }
+    }
     
     calculateLayout() {
         this.points = new UVPointsList();
@@ -32,9 +75,11 @@ class Layout {
 
                 let rowDelta = this.width/cols;
                 let colDelta = this.height/rows;
-
-                let x = col * colDelta+ Math.random() * colDelta;
-                let y = row * rowDelta + Math.random() * rowDelta;
+                
+                let x,y,z,color;
+                x = col * colDelta + Math.random() * colDelta;
+                y = row * rowDelta + Math.random() * rowDelta;
+                z = Math.random() * this.maxZ;
 
                 row == 0 && (y = 0);
                 row == rows - 1 && (y = this.height);
@@ -42,8 +87,7 @@ class Layout {
                 col == 0 && (x = 0);
                 col == cols - 1 && (x = this.width);
 
-                let z = Math.random() * this.maxZ;
-                this.pointsMap[row + ',' + col] = this.points.add(x, y, z);
+                this.pointsMap[row + ',' + col] = this.points.add(x, y, z, color);
             }
         }
 
@@ -103,6 +147,10 @@ class Layout {
             vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100},
             sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A * A + B * B + C * C) * Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)),
             shade = Math.ceil(sin * 20 + 40);
+        
+        mouse.x > Math.min(x1,x2,x3) && mouse.x < Math.max(x1,x2,x3)
+        && mouse.y > Math.min(y1,y2,y3) && mouse.y < Math.max(y1,y2,y3)
+        && (shade += 10)
 
         return {
             r: shade,

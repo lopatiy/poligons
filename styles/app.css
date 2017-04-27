@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: "Arial Black", serif;
 }
 
 .aside {
@@ -63,3 +64,58 @@ body {
 .links a.active{
     background-color: gold;
 }
+
+.scene {
+    cursor: none;
+    position: fixed;
+    left: 200px;
+    top: 0;
+    padding: 100px;
+    width: calc(100% - 400px);
+    height: calc(100%  - 200px);
+}
+
+.scene .page{
+    width: 100%;
+    height: 100%;
+}
+
+.scene .page h1.greeting {
+    margin: 200px 0 0 0 ;
+    text-align: center;
+    color: gold;
+    font-size: 12em;
+}
+
+.dashed:after {
+    content: '|';
+    position: relative;
+    top: -0.1em;
+    animation: blink-animation 1s steps(5,start) infinite;
+    -webkit-animation: blink-animation 1s steps(5,start) infinite;
+}
+
+.cursive {
+    margin: 0;
+    text-align: center;
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4em;
+}
+
+.name {
+    font-size: 6em;
+    color: gold;
+    text-shadow: black 1px 3px 8px;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
