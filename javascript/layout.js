@@ -119,7 +119,7 @@ class Layout {
                         colOffset = (row <= this.rows/2 ? row : this.rows-row)-this.rows/2,
                         currentColumn  = colOffset + col;
                     if(currentColumn < this.cols){
-                        this.points.update(offset + currentColumn, 'z', 30);
+                        this.points.update(offset + currentColumn, 'z', 10);
                     }
                 }
                 break;

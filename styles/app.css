@@ -7,16 +7,17 @@ body {
 
 .aside {
     top: 0;
+    left: 100px;
     position:fixed;
-    width: 200px;
+    width: 180px;
     height: 100%;
     background: #333;
     box-shadow: 0 0 15px -2px;
 }
 
 .aside .logo {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     border: 1px solid black;
     margin: 20px;
 }
@@ -25,7 +26,7 @@ body {
     content: '';
     display: block;
     position: relative;
-    top: 170px;
+    top: 150px;
     width: 90%;
     height: 2px;
     background: gold;
@@ -36,14 +37,15 @@ body {
     content: '';
     display: block;
     position: relative;
-    top: 175px;
+    top: 155px;
     width: 80%;
     height: 2px;
     background: black;
 }
 
 .links {
-    margin: 10px 0;
+    text-align: center;
+    margin: 0;
     padding: 10px 0;
     width: 180px;
     height: 100%;
@@ -68,10 +70,10 @@ body {
 .scene {
     cursor: none;
     position: fixed;
-    left: 200px;
+    left: 280px;
     top: 0;
     padding: 100px;
-    width: calc(100% - 400px);
+    width: calc(100% - 480px);
     height: calc(100%  - 200px);
 }
 
@@ -84,7 +86,7 @@ body {
     margin: 200px 0 0 0 ;
     text-align: center;
     color: gold;
-    font-size: 12em;
+    font-size: 4em;
 }
 
 .dashed:after {
@@ -103,7 +105,7 @@ body {
 }
 
 .name {
-    font-size: 6em;
+    font-size: 3em;
     color: gold;
     text-shadow: black 1px 3px 8px;
 }
