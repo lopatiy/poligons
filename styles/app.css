@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: "Arial Black", serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .aside {
@@ -24,7 +24,7 @@ body {
     height: 25%;
     width: 100px;
     color: lightgrey;
-    font-family: "Arial Black", serif;
+    font-weight: bolder;
     transition: background-color,opacity .5s;
 }
 
@@ -91,6 +91,7 @@ body {
 }
 
 .scene .page h1.greeting {
+    font-family: "Arial Black", serif;
     margin: 200px 0 0 0 ;
     text-align: center;
     color: goldenrod;

@@ -23,16 +23,25 @@ class Application {
     }
 
     addListeners() {
-        document.querySelectorAll('.link').forEach((item, index) => {
-            item.addEventListener('click', (event) => {
-                document.querySelectorAll('.link').forEach((item) => {
-                    item.classList.remove('active');
-                });
+        document.querySelectorAll('.link').forEach((item, index) =>
+            item.addEventListener('click', this.changeLocation.bind(this, index)))
+    }
 
-                this.location = index;
-                console.log(this.location)
-                item.classList.add('active');
-            }, true)
-        })
+    changeLocation(index) {
+        let links = document.querySelectorAll('.link');
+        links[this.location].classList.remove('active');
+        links[index].classList.add('active');
+
+        this.location = index;
+    }
+}
+
+class LayoutContainer {
+    constructor() {
+        this.layouts = [];
+    }
+
+    length() {
+        return this.layouts.length;
     }
 }
