@@ -22,14 +22,14 @@ class Application {
     }
 
     addListeners() {
-        document.querySelectorAll('.links a').forEach((item) => {
+        document.querySelectorAll('.link').forEach((item) => {
             item.addEventListener('click', (event) => {
-                document.querySelectorAll('.links a').forEach((item) => {
+                document.querySelectorAll('.link').forEach((item) => {
                     item.classList.remove('active');
                 });
 
-                event.target.classList.add('active');
-            })
+                item.classList.add('active');
+            }, true)
         })
     }
 }

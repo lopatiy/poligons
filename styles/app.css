@@ -23,7 +23,7 @@ body {
     height: 25%;
     color: lightgrey;
     font-family: "Arial Black", serif;
-    transition: background-color .5s;
+    transition: background-color,opacity .5s;
 }
 
 .link span {
