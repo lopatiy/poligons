@@ -6,69 +6,78 @@ body {
 }
 
 .aside {
-    top: 0;
-    left: 100px;
-    position:fixed;
-    width: 180px;
-    height: 100%;
-    background: #333;
-    box-shadow: 0 0 15px -2px;
+    position: fixed;
+    width: 1px;
+    left:75px;
+    height: 90%;
+    top:5%;
+
 }
 
-.aside .logo {
-    width: 140px;
-    height: 140px;
-    border: 1px solid black;
-    margin: 20px;
-}
-
-.aside .logo:before {
-    content: '';
-    display: block;
+.link {
+    user-select: none;
     position: relative;
-    top: 150px;
-    width: 90%;
-    height: 2px;
-    background: gold;
-}
-
-.aside .logo:after {
-    overflow: hidden;
-    content: '';
-    display: block;
-    position: relative;
-    top: 155px;
-    width: 80%;
-    height: 2px;
-    background: black;
-}
-
-.links {
-    text-align: center;
-    margin: 0;
-    padding: 10px 0;
-    width: 180px;
-    height: 100%;
-}
-
-.links a {
-    padding: 0 20px;
-    font-size: 1.5em;
-    color: #333;
+    margin: 5px 0;
+    background: lightgray;
+    opacity:.3;
+    height: 25%;
+    color: lightgrey;
     font-family: "Arial Black", serif;
-    text-transform: uppercase;
-    text-decoration: none;
-    background-color: #222;
-
     transition: background-color .5s;
 }
 
-.links a.active{
+.link span {
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top:45%;
+    height: 100%;
+    vertical-align: middle;
+    line-height: 100%;
+}
+
+.link:before,
+.link:after {
+    opacity:1;
+    width: 3px;
+    height: 3px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    background: lightgray;
+    position: absolute;
+    left: -2px;
+    display: block;
+}
+
+.link:before{
+    content: '';
+    top: -5px;
+}
+
+.link:last-child:after {
+    content: '';
+    bottom: -5px;
+}
+
+.link.active {
+    opacity: 1;
+    width: 1px;
+    color: gold;
     background-color: gold;
 }
 
+.link.active:before,
+.link.active:after {
+    content: '';
+    background: gold;
+    border-color: gold;
+}
+
+.link.active:after {
+    bottom: -5px;
+}
+
 .scene {
-    cursor: none;
     position: fixed;
     left: 0;
     top: 0;
@@ -85,8 +94,9 @@ body {
 .scene .page h1.greeting {
     margin: 200px 0 0 0 ;
     text-align: center;
-    color: gold;
+    color: goldenrod;
     font-size: 4em;
+    text-shadow: black 5px 5px;
 }
 
 .dashed:after {
@@ -106,7 +116,7 @@ body {
 
 .name {
     font-size: 3em;
-    color: gold;
+    color: goldenrod;
     text-shadow: black 1px 3px 8px;
 }
 
