@@ -11,6 +11,7 @@ class Application {
 
         this.layout = new Layout(w, h, document.getElementById('scene'));
         this.layout.calculateLayout();
+        this.location = 0;
     }
 
     render(once) {
@@ -22,12 +23,14 @@ class Application {
     }
 
     addListeners() {
-        document.querySelectorAll('.link').forEach((item) => {
+        document.querySelectorAll('.link').forEach((item, index) => {
             item.addEventListener('click', (event) => {
                 document.querySelectorAll('.link').forEach((item) => {
                     item.classList.remove('active');
                 });
 
+                this.location = index;
+                console.log(this.location)
                 item.classList.add('active');
             }, true)
         })
