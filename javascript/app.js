@@ -26,8 +26,16 @@ class Application {
         document.querySelectorAll('.link:not(.caret)').forEach((item, index) =>
             item.addEventListener('click', this.changeLocation.bind(this, index)));
 
-        document.body.addEventListener('mousewheel', (e) =>
-            this.changeLocation(this.location + e.deltaY / Math.abs(e.deltaY)))
+        let counter = 0;
+        document.body.addEventListener('mousewheel', (e) => {
+            let dir = e.deltaY / Math.abs(e.deltaY);
+            if (Math.abs(counter) > 4) {
+                counter = 0;
+                this.changeLocation(this.location + dir);
+            } else {
+                counter += dir
+            }
+        })
     }
 
     changeLocation(index) {
