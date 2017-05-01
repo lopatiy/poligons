@@ -27,7 +27,7 @@ class Layout {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
-        this.rows = 18;
+        this.rows = 20;
         this.cols = Math.ceil(this.width/this.height * this.rows);
 
         for (let row = 0; row < this.rows; row++) {
@@ -99,7 +99,7 @@ class Layout {
     animate(frame) {
         let col = frame % (this.cols);
         if(col == 0){
-            this.currentAnimation = this.animationTypes[Math.floor(Math.random() * this.animationTypes.length)];
+            this.currentAnimation = this.animationTypes[Math.random() * this.animationTypes.length | 0];
         }
         this.transformations(this.currentAnimation, col);
     }
@@ -110,7 +110,9 @@ class Layout {
             case "VLine" :
                 for (let row = 0; row < this.rows; row++) {
                     let offset = row * this.cols;
-                    this.points.update(offset + col, 'z', 30);
+                    this.points.update(offset + col-1, 'z', 12);
+                    this.points.update(offset + col, 'z', 15);
+                    this.points.update(offset + col+1, 'z', 12);
                 }
                 break;
             case "Arrow" :

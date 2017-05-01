@@ -23,16 +23,24 @@ class Application {
     }
 
     addListeners() {
-        document.querySelectorAll('.link').forEach((item, index) =>
-            item.addEventListener('click', this.changeLocation.bind(this, index)))
+        document.querySelectorAll('.link:not(.caret)').forEach((item, index) =>
+            item.addEventListener('click', this.changeLocation.bind(this, index)));
+
+        document.body.addEventListener('mousewheel', (e) =>
+            this.changeLocation(this.location + e.deltaY / Math.abs(e.deltaY)))
     }
 
     changeLocation(index) {
-        let links = document.querySelectorAll('.link');
-        links[this.location].classList.remove('active');
-        links[index].classList.add('active');
+        let links = document.querySelectorAll('.link:not(.caret)');
+        if(links[index]){
+            links[this.location].classList.remove('active');
+            links[index].classList.add('active');
 
-        this.location = index;
+            let link = document.querySelectorAll('.link.caret')[0];
+            link.style.top = 'calc(' + index * 25 +'%  + ' + index * 5 + 'px)';
+
+            this.location = index;
+        }
     }
 }
 
