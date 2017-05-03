@@ -109,18 +109,30 @@ body {
     height: 100%;
 }
 
-.scene .page{
-    padding: 100px;
-    width: calc(100% - 250px);
-    height: calc(100% - 250px);
+.page{
+    padding: 100px 200px;
+    width: calc(100% - 400px);
+    height: calc(100% - 200px);
 }
 
-.scene .page h1.greeting {
+.page > div{
+    padding: 0;
+    margin: 0;
+    width: 49%;
+    height: 100%;
+    display: inline-block;
+}
+
+.page .right {
+    float: right;
+}
+
+h1.greeting {
     font-family: "Arial Black", serif;
-    margin: 250px 0 0 0 ;
+    margin: 0;
     text-align: center;
     color: goldenrod;
-    font-size: 4em;
+    font-size: 6em;
     text-shadow: black 5px 5px;
 }
 

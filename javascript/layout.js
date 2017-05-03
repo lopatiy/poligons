@@ -147,7 +147,7 @@ class Layout {
             C = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2),
             vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100},
             sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A * A + B * B + C * C) * Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)),
-            shade = Math.ceil(sin * 20 + 40);
+            shade = Math.ceil(sin * 30 + 10);
         
         mouse.x > Math.min(x1,x2,x3) && mouse.x < Math.max(x1,x2,x3)
         && mouse.y > Math.min(y1,y2,y3) && mouse.y < Math.max(y1,y2,y3)
