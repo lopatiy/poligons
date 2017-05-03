@@ -23,7 +23,7 @@ class Application {
     }
 
     addListeners() {
-        document.querySelectorAll('.link:not(.caret)').forEach((item, index) =>
+        document.querySelectorAll('.link').forEach((item, index) =>
             item.addEventListener('click', this.changeLocation.bind(this, index)));
 
         let counter = 0;
@@ -39,13 +39,13 @@ class Application {
     }
 
     changeLocation(index) {
-        let links = document.querySelectorAll('.link:not(.caret)');
+        let links = document.querySelectorAll('.link');
         if(links[index]){
             links[this.location].classList.remove('active');
             links[index].classList.add('active');
 
-            let link = document.querySelectorAll('.link.caret')[0];
-            link.style.top = 'calc(' + index * 25 +'%  + ' + index * 5 + 'px)';
+            let link = document.querySelectorAll('.caret')[0];
+            link.style.top = 'calc(' + index * 25 +'% + 1px)';
 
             this.location = index;
         }

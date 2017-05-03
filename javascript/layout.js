@@ -101,7 +101,7 @@ class Layout {
         if(col == 0){
             this.currentAnimation = this.animationTypes[Math.random() * this.animationTypes.length | 0];
         }
-        this.transformations(this.currentAnimation, col);
+        //this.transformations(this.currentAnimation, col);
     }
 
     transformations(type, col){
