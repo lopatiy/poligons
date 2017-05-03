@@ -110,8 +110,8 @@ body {
 }
 
 .page{
-    padding: 100px 200px;
-    width: calc(100% - 400px);
+    padding: 100px 100px 100px 200px;
+    width: calc(100% - 300px);
     height: calc(100% - 200px);
 }
 
@@ -123,16 +123,26 @@ body {
     display: inline-block;
 }
 
+@media (max-width: 1000px) {
+    .page > div{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 50%;
+        display: inline-block;
+    }
+}
+
 .page .right {
     float: right;
 }
 
 h1.greeting {
+    margin: 200px 0;
     font-family: "Arial Black", serif;
-    margin: 0;
     text-align: center;
     color: goldenrod;
-    font-size: 6em;
+    font-size: 5em;
     text-shadow: black 5px 5px;
 }
 

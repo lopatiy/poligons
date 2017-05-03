@@ -27,8 +27,13 @@ class Layout {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
-        this.rows = 20;
-        this.cols = Math.ceil(this.width/this.height * this.rows);
+        if(this.width > this.height){
+            this.rows = 20;
+            this.cols = Math.ceil(this.width/this.height * this.rows);
+        } else {
+            this.cols = 20;
+            this.rows = Math.ceil(this.height/this.width * this.cols);
+        }
 
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.cols; col++) {

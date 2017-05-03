@@ -6,7 +6,7 @@ function loaded() {
 
 class Application {
     constructor() {
-        let h = document.body.getBoundingClientRect().height,
+        let h = document.body.scrollHeight,
             w = document.body.getBoundingClientRect().width;
 
         this.layout = new Layout(w, h, document.getElementById('scene'));
