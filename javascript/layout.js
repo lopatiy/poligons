@@ -18,20 +18,18 @@ class Layout {
             this.mousePosition.x = event.clientX;
             this.mousePosition.y = event.clientY;
         });
-
-        this.animationTypes = ["Arrow", "VLine"];
-        this.currentAnimation = this.animationTypes[0];
     }
 
     calculateLayout() {
         this.points = new UVPointsList();
         this.pointsMap = {};
 
+        let narrow = 15;
         if(this.width > this.height){
-            this.rows = 20;
+            this.rows = narrow;
             this.cols = Math.ceil(this.width/this.height * this.rows);
         } else {
-            this.cols = 20;
+            this.cols = narrow;
             this.rows = Math.ceil(this.height/this.width * this.cols);
         }
 
@@ -55,8 +53,6 @@ class Layout {
                 this.pointsMap[row + ',' + col] = this.points.add(x, y, z, color);
             }
         }
-
-        this.originalPoints = this.points.copy();
         return this;
     }
 
@@ -86,51 +82,13 @@ class Layout {
     }
 
     watch() {
-        let frame = 0;
-        let skipped = 0;
         const update = () =>
             requestAnimationFrame(() => {
-                if(skipped++ === 2){
-                    skipped = 0;
-                    this.animate(++frame);
-                }
                 this.render();
-                setTimeout(update.bind(this), 10);
+                setTimeout(update.bind(this), 5);
             });
         update();
         return this;
-    }
-
-    animate(frame) {
-        let col = frame % (this.cols);
-        if(col == 0){
-            this.currentAnimation = this.animationTypes[Math.random() * this.animationTypes.length | 0];
-        }
-        //this.transformations(this.currentAnimation, col);
-    }
-
-    transformations(type, col){
-        this.points = this.originalPoints.copy();
-        switch (type){
-            case "VLine" :
-                for (let row = 0; row < this.rows; row++) {
-                    let offset = row * this.cols;
-                    this.points.update(offset + col-1, 'z', 12);
-                    this.points.update(offset + col, 'z', 15);
-                    this.points.update(offset + col+1, 'z', 12);
-                }
-                break;
-            case "Arrow" :
-                for (let row = 0; row < this.rows; row++) {
-                    let offset = row * this.cols,
-                        colOffset = (row <= this.rows/2 ? row : this.rows-row)-this.rows/2,
-                        currentColumn  = colOffset + col;
-                    if(currentColumn < this.cols){
-                        this.points.update(offset + currentColumn, 'z', 10);
-                    }
-                }
-                break;
-        }
     }
 
     renderTriangle(a,b,c) {
@@ -152,11 +110,7 @@ class Layout {
             C = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2),
             vec = {x: x1 - mouse.x, y: y1 - mouse.y, z: z1 - 100},
             sin = Math.abs(A * vec.x + B * vec.y + C * vec.z) / (Math.sqrt(A * A + B * B + C * C) * Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)),
-            shade = Math.ceil(sin * 30 + 10);
-        
-        mouse.x > Math.min(x1,x2,x3) && mouse.x < Math.max(x1,x2,x3)
-        && mouse.y > Math.min(y1,y2,y3) && mouse.y < Math.max(y1,y2,y3)
-        && (shade += 10);
+            shade = Math.ceil(sin * 50 + 30);
 
         return {
             r: shade,

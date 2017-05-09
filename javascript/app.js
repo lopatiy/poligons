@@ -29,7 +29,7 @@ class Application {
         let counter = 0;
         document.body.addEventListener('mousewheel', (e) => {
             let dir = e.deltaY / Math.abs(e.deltaY);
-            if (Math.abs(counter) > 4) {
+            if (Math.abs(counter) > 2) {
                 counter = 0;
                 this.changeLocation(this.location + dir);
             } else {
@@ -49,15 +49,5 @@ class Application {
 
             this.location = index;
         }
-    }
-}
-
-class LayoutContainer {
-    constructor() {
-        this.layouts = [];
-    }
-
-    length() {
-        return this.layouts.length;
     }
 }
