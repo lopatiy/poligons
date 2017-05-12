@@ -41,11 +41,11 @@ class Application {
 
     disableScroll() {
         if (window.addEventListener) // older FF
-            window.addEventListener('DOMMouseScroll', this.preventDefault, false);
+            window.addEventListener('DOMMouseScroll', this.preventDefault.bind(this), false);
         window.onwheel = this.preventDefault; // modern standard
-        window.onmousewheel = document.onmousewheel = this.preventDefault; // older browsers, IE
-        window.ontouchmove  = this.preventDefault; // mobile
-        document.onkeydown  = this.preventDefaultForScrollKeys;
+        window.onmousewheel = document.onmousewheel = this.preventDefault.bind(this); // older browsers, IE
+        window.ontouchmove  = this.preventDefault.bind(this); // mobile
+        document.onkeydown  = this.preventDefaultForScrollKeys.bind(this);
     }
 
     render(once) {
