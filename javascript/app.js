@@ -20,7 +20,8 @@ class Application {
             item.id = 'page-' + index;
         });
 
-        this.disableScroll()
+        this.disableScroll();
+        this.scroller = zenscroll.createScroller(document.getElementsByClassName("scene")[0], 500, 300);
     }
 
     preventDefault(e) {
@@ -44,8 +45,8 @@ class Application {
             window.addEventListener('DOMMouseScroll', this.preventDefault.bind(this), false);
         window.onwheel = this.preventDefault; // modern standard
         window.onmousewheel = document.onmousewheel = this.preventDefault.bind(this); // older browsers, IE
-        window.ontouchmove  = this.preventDefault.bind(this); // mobile
-        document.onkeydown  = this.preventDefaultForScrollKeys.bind(this);
+        window.ontouchmove = this.preventDefault.bind(this); // mobile
+        document.onkeydown = this.preventDefaultForScrollKeys.bind(this);
     }
 
     render(once) {
@@ -78,11 +79,9 @@ class Application {
                 link.style.top = 'calc(' + index * 25 + '% + 1px)';
 
                 this.location = index;
-
-                let scroll = document.getElementsByClassName('scene')[0];
-                scroll.scrollTop = scroll.getBoundingClientRect().height * index;
+                this.scroller.center(pages[index])
             }
-            setTimeout(()=>this.allowLocationChange = true, 500);
+            setTimeout(()=>this.allowLocationChange = true, 700);
         }
     }
 }

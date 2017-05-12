@@ -5,6 +5,8 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+body, .smooth-container { scroll-behavior: smooth }
+
 .aside {
     position: fixed;
     width: 1px;
