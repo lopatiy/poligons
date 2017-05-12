@@ -113,6 +113,12 @@ body, .smooth-container { scroll-behavior: smooth }
     overflow-x: hidden;;
 }
 
+.scene p {
+    color: gold;
+    font-weight: 500;
+    font-size: 2em;
+}
+
 .page{
     padding: 100px 100px 100px 200px;
     width: calc(100% - 300px);
