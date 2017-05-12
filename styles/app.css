@@ -105,8 +105,10 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
+    width: calc(100% + 15px);
     height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;;
 }
 
 .page{
