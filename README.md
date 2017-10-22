@@ -1,1 +1,1 @@
-# poligons
+# Polygons project
